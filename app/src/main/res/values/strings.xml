@@ -4,7 +4,7 @@
     <string name="last_name">Last Name</string>
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
-    <string name="password_confirmation">Password Confirmation</string>
+    <string name="password_confirmation">Confirm Password</string>
     <string name="submit_button">Submit</string>
     <string name="sign_up_title">Sign Up</string>
     <string name="submit_toast">User account created!</string>

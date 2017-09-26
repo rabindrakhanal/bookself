@@ -10,67 +10,85 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_up_title"
         android:textSize="24dp"
-        android:paddingBottom="24dp"/>
+        android:paddingBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            android:textSize="20sp"
+            android:layout_gravity="left"/>
+
+        <EditText
+            android:id="@+id/first_name_text_input"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:textSize="20sp"/>
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/first_name"/>
-
-    <EditText
-        android:id="@+id/first_name_text_input"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="text"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/last_name"/>
+        android:text="@string/last_name"
+        android:textSize="20sp"
+        android:layout_gravity="left"/>
 
     <EditText
         android:id="@+id/last_name_text_input"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textSize="20sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/email_address"/>
+        android:text="@string/email_address"
+        android:textSize="20sp"
+        android:layout_gravity="left"/>
 
     <EditText
         android:id="@+id/email_address_text_input"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textSize="20sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password"/>
+        android:text="@string/password"
+        android:textSize="20sp"
+        android:layout_gravity="left"/>
 
     <EditText
         android:id="@+id/password_text_input"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:textSize="20sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/password_confirmation"/>
+        android:text="@string/password_confirmation"
+        android:textSize="20sp"
+        android:layout_gravity="left"/>
 
     <EditText
         android:id="@+id/password_confirmation_text_input"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:textSize="20sp"/>
 
     <Button
         android:id="@+id/sign_up_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit_button"/>
+        android:text="@string/submit_button"
+        android:textSize="20sp"/>
 
 </LinearLayout>
