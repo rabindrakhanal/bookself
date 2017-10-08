@@ -9,7 +9,7 @@ import java.util.UUID;
 public class SignUpActivity extends SingleFragmentActivity {
 
     public static Intent newIntent(Context packageContext, UUID id) {
-        Intent intent = new Intent(packageContext, UserActivity.class);
+        Intent intent = new Intent(packageContext, SignUpActivity.class);
         return intent;
     }
 

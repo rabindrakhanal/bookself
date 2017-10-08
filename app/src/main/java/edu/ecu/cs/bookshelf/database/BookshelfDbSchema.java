@@ -14,7 +14,7 @@ public class BookshelfDbSchema {
             public static final String AUTHOR = "author";
             public static final String DATE_PUBLISHED = "date_published";
             public static final String EDITION = "edition";
-            public static final String NUMBER_OF_PAGES = "number_of_pages";
+            public static final String PAGE_COUNT = "page_count";
             public static final String FORMAT = "format";
             public static final String DATE_CREATED = "date_created";
             public static final String DATE_MODIFIED = "date_modified";

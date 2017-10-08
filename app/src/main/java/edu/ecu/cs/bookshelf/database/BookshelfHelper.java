@@ -32,7 +32,18 @@ public class BookshelfHelper extends SQLiteOpenHelper {
                 UserTable.Cols.DATE_CREATED + ", " +
                 UserTable.Cols.DATE_MODIFIED + ")"
         );
-//        db.execSQL("create table " + BookTable.NAME);
+        db.execSQL("create table " + BookTable.NAME +
+                "(_id integer primary key autoincrement, " +
+                BookTable.Cols.UUID + ", " +
+                BookTable.Cols.TITLE + ", " +
+                BookTable.Cols.AUTHOR + ", " +
+                BookTable.Cols.DATE_PUBLISHED + ", " +
+                BookTable.Cols.EDITION + ", " +
+                BookTable.Cols.PAGE_COUNT + ", " +
+                BookTable.Cols.FORMAT + ", " +
+                BookTable.Cols.DATE_CREATED + ", " +
+                BookTable.Cols.DATE_MODIFIED + ")"
+        );
 //        db.execSQL("create table " + UserBookTable.NAME);
     }
 

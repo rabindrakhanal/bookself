@@ -6,7 +6,9 @@ import android.database.CursorWrapper;
 import java.util.Date;
 import java.util.UUID;
 
+import edu.ecu.cs.bookshelf.Book;
 import edu.ecu.cs.bookshelf.User;
+import edu.ecu.cs.bookshelf.database.BookshelfDbSchema.BookTable;
 import edu.ecu.cs.bookshelf.database.BookshelfDbSchema.UserTable;
 
 /**
@@ -36,5 +38,29 @@ public class BookshelfCursorWrapper extends CursorWrapper {
         user.setDateModified(new Date(dateModified));
 
         return user;
+    }
+
+    public Book getBook() {
+        String uuidString = getString(getColumnIndex(BookTable.Cols.UUID));
+        String title = getString(getColumnIndex(BookTable.Cols.TITLE));
+        String author = getString(getColumnIndex(BookTable.Cols.AUTHOR));
+        long datePublished = getLong(getColumnIndex(BookTable.Cols.DATE_PUBLISHED));
+        String edition = getString(getColumnIndex(BookTable.Cols.EDITION));
+        int pageCount = getInt(getColumnIndex(BookTable.Cols.PAGE_COUNT));
+        String format = getString(getColumnIndex(BookTable.Cols.FORMAT));
+        long dateCreated = getLong(getColumnIndex(BookTable.Cols.DATE_CREATED));
+        long dateModified = getLong(getColumnIndex(BookTable.Cols.DATE_MODIFIED));
+
+        Book book = new Book(UUID.fromString(uuidString));
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setDatePublished(new Date(datePublished));
+        book.setEdition(edition);
+        book.setPageCount(pageCount);
+        book.setFormat(format);
+        book.setDateCreated(new Date(dateCreated));
+        book.setDateModified(new Date(dateModified));
+
+        return book;
     }
 }
