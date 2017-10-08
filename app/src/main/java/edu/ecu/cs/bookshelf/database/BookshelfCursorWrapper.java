@@ -8,7 +8,9 @@ import java.util.UUID;
 
 import edu.ecu.cs.bookshelf.Book;
 import edu.ecu.cs.bookshelf.User;
+import edu.ecu.cs.bookshelf.UserBook;
 import edu.ecu.cs.bookshelf.database.BookshelfDbSchema.BookTable;
+import edu.ecu.cs.bookshelf.database.BookshelfDbSchema.UserBookTable;
 import edu.ecu.cs.bookshelf.database.BookshelfDbSchema.UserTable;
 
 /**
@@ -62,5 +64,27 @@ public class BookshelfCursorWrapper extends CursorWrapper {
         book.setDateModified(new Date(dateModified));
 
         return book;
+    }
+
+    public UserBook getUserBook() {
+        String uuidString = getString(getColumnIndex(UserBookTable.Cols.UUID));
+        String userIdString = getString(getColumnIndex(UserBookTable.Cols.USER_ID));
+        String bookIdString = getString(getColumnIndex(UserBookTable.Cols.BOOK_ID));
+        int read = getInt(getColumnIndex(UserBookTable.Cols.READ));
+        int favorite = getInt(getColumnIndex(UserBookTable.Cols.FAVORITE));
+        int borrowed = getInt(getColumnIndex(UserBookTable.Cols.BORROWED));
+        long dateCreated = getLong(getColumnIndex(UserBookTable.Cols.DATE_CREATED));
+        long dateModified = getLong(getColumnIndex(UserBookTable.Cols.DATE_MODIFIED));
+
+        UserBook userBook = new UserBook(UUID.fromString(uuidString));
+        userBook.setUserId(UUID.fromString(userIdString));
+        userBook.setBookId(UUID.fromString(bookIdString));
+        userBook.setRead(read != 0);
+        userBook.setFavorite(favorite != 0);
+        userBook.setBorrowed(borrowed != 0);
+        userBook.setDateCreated(new Date(dateCreated));
+        userBook.setDateModified(new Date(dateModified));
+
+        return userBook;
     }
 }

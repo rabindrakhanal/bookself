@@ -32,6 +32,7 @@ public class BookshelfHelper extends SQLiteOpenHelper {
                 UserTable.Cols.DATE_CREATED + ", " +
                 UserTable.Cols.DATE_MODIFIED + ")"
         );
+
         db.execSQL("create table " + BookTable.NAME +
                 "(_id integer primary key autoincrement, " +
                 BookTable.Cols.UUID + ", " +
@@ -44,7 +45,18 @@ public class BookshelfHelper extends SQLiteOpenHelper {
                 BookTable.Cols.DATE_CREATED + ", " +
                 BookTable.Cols.DATE_MODIFIED + ")"
         );
-//        db.execSQL("create table " + UserBookTable.NAME);
+
+        db.execSQL("create table " + UserBookTable.NAME +
+                "(_id integer primary key autoincrement, " +
+                UserBookTable.Cols.UUID + ", " +
+                UserBookTable.Cols.USER_ID + ", " +
+                UserBookTable.Cols.BOOK_ID + ", " +
+                UserBookTable.Cols.READ + ", " +
+                UserBookTable.Cols.FAVORITE + ", " +
+                UserBookTable.Cols.BORROWED + ", " +
+                UserBookTable.Cols.DATE_CREATED + ", " +
+                UserBookTable.Cols.DATE_MODIFIED + ")"
+        );
     }
 
     @Override
