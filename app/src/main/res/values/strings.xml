@@ -14,4 +14,5 @@
     <string name="invalid_email_toast">You did not enter a valid email address</string>
     <string name="invalid_password_toast">You did not eneter a valid password</string>
     <string name="invalid_password_confirmation_toast">You did not enter matching passwords</string>
+    <string name="existing_account_toast">You already have an account.</string>
 </resources>

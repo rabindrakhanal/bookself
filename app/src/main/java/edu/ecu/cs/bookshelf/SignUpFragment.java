@@ -159,18 +159,23 @@ public class SignUpFragment extends Fragment {
                     Toast.makeText(getActivity(), R.string.invalid_password_confirmation_toast, Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    User user = new User();
-                    user.setEmailAddress(mUser.get("emailAddress"));
-                    user.setFirstName(mUser.get("firstName"));
-                    user.setLastName(mUser.get("lastName"));
-                    user.setEncryptedPassword(mUser.get("encryptedPassword"));
-                    UserBase.getUserBase(getActivity()).addUser(user);
+                    // Check if user has already registered
+                    if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
+                        Toast.makeText(getActivity(), R.string.existing_account_toast, Toast.LENGTH_SHORT).show();
+                    } else {
+                        User user = new User();
+                        user.setEmailAddress(mUser.get("emailAddress"));
+                        user.setFirstName(mUser.get("firstName"));
+                        user.setLastName(mUser.get("lastName"));
+                        user.setEncryptedPassword(mUser.get("encryptedPassword"));
+                        UserBase.getUserBase(getActivity()).addUser(user);
 
-                    String newUserFirstName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getFirstName();
-                    String newUserLastName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getLastName();
+                        String newUserFirstName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getFirstName();
+                        String newUserLastName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getLastName();
 
-                    Toast.makeText(getActivity(), "Account created for " + newUserFirstName + " " + newUserLastName + "!",
-                            Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Account created for " + newUserFirstName + " " + newUserLastName + "!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -73,6 +73,20 @@ public class UserBase {
         }
     }
 
+    public boolean exists(String emailAddress) {
+        BookshelfCursorWrapper cursor = queryUsers(UserTable.Cols.EMAIL_ADDRESS + " = ?", new String[] { emailAddress });
+
+        try {
+            if (cursor.getCount() == 0) {
+                return false;
+            }
+
+            return true;
+        } finally {
+            cursor.close();
+        }
+    }
+
     public void updateUser(User user) {
         String uuidString = user.getId().toString();
         ContentValues values = getContentValues(user);
