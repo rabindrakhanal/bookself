@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">bookshelf</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Confirm Password</string>
+    <string name="submit_button">Submit</string>
+    <string name="sign_up_title">Sign Up</string>
+    <string name="submit_toast">User account created!</string>
+    <string name="submit_invalid_toast">Invalid submission</string>
+    <string name="invalid_first_name_toast">You did not enter a first name</string>
+    <string name="invalid_last_name_toast">You did not enter a last name</string>
+    <string name="invalid_email_toast">You did not enter a valid email address</string>
+    <string name="invalid_password_toast">You did not eneter a valid password</string>
+    <string name="invalid_password_confirmation_toast">You did not enter matching passwords</string>
 </resources>
