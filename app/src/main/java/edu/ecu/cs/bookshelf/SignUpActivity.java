@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class SignUpActivity extends SingleFragmentActivity {
 
-    public static Intent newIntent(Context packageContext, UUID id) {
+    public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, SignUpActivity.class);
         return intent;
     }

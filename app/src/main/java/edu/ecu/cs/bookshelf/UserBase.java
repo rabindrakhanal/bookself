@@ -73,6 +73,21 @@ public class UserBase {
         }
     }
 
+    public User getUserByEmail(String emailAddress) {
+        BookshelfCursorWrapper cursor = queryUsers(UserTable.Cols.EMAIL_ADDRESS + " = ?", new String[] { emailAddress.toString() });
+
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getUser();
+        } finally {
+            cursor.close();
+        }
+    }
+
     public boolean exists(String emailAddress) {
         BookshelfCursorWrapper cursor = queryUsers(UserTable.Cols.EMAIL_ADDRESS + " = ?", new String[] { emailAddress });
 

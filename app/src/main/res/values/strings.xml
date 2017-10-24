@@ -15,4 +15,9 @@
     <string name="invalid_password_toast">You did not eneter a valid password</string>
     <string name="invalid_password_confirmation_toast">You did not enter matching passwords</string>
     <string name="existing_account_toast">You already have an account.</string>
+    <string name="login_title">Log In</string>
+    <string name="or">or</string>
+    <string name="successful_login_toast">You have successfully logged in!</string>
+    <string name="no_existing_account_toast">There is no account for that email address.</string>
+    <string name="incorrect_password_toast">Incorrect password.</string>
 </resources>
