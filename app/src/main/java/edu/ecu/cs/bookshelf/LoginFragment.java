@@ -84,11 +84,8 @@ public class LoginFragment extends Fragment {
             if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
                 User user = UserBase.getUserBase(getActivity()).getUserByEmail(mUser.get("emailAddress"));
                 if (user.getEncryptedPassword().equals(mUser.get("encryptedPassword"))) {
-                    String userFirstName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getFirstName();
-                    String userLastName = UserBase.getUserBase(getActivity()).getUser(user.getId()).getLastName();
-
-                    Toast.makeText(getActivity(), userFirstName + " " + userLastName +
-                            " has been successfully logged in.", Toast.LENGTH_SHORT).show();
+                    Intent intent = UserDashboardActivity.newIntent(getActivity());
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), R.string.incorrect_password_toast, Toast.LENGTH_SHORT).show();
                 }

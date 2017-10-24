@@ -1,5 +1,6 @@
 package edu.ecu.cs.bookshelf;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -175,6 +176,9 @@ public class SignUpFragment extends Fragment {
 
                         Toast.makeText(getActivity(), "Account created for " + newUserFirstName + " " + newUserLastName + "!",
                                 Toast.LENGTH_SHORT).show();
+
+                        Intent intent = UserDashboardActivity.newIntent(getActivity());
+                        startActivity(intent);
                     }
                 }
             }
