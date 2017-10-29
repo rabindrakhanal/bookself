@@ -23,8 +23,6 @@
     <string name="title">Title</string>
     <string name="author">Author</string>
     <string name="add_to_shelf_button">Add to shelf</string>
-    <string name="book_title">Title of book</string>
-    <string name="book_author">Author of book</string>
     <string name="date_published">Date Published</string>
-    <string name="book_publication_date">Book publication date</string>
+    <string name="added_to_shelf">This book has been added to your shelf.</string>
 </resources>

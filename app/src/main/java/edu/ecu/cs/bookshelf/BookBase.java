@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -97,5 +100,35 @@ public class BookBase {
         values.put(BookTable.Cols.DATE_MODIFIED, book.getDateModified().getTime());
 
         return values;
+    }
+
+    // Remove once book API is in place
+    public void addSampleData() {
+        Book book1 = new Book();
+        book1.setTitle("Great Expectations");
+        book1.setAuthor("Charles Dickens");
+        book1.setDatePublished(new Date());
+        book1.setEdition("Kindle edition");
+        book1.setPageCount(380);
+        book1.setFormat("epub");
+        addBook(book1);
+
+        Book book2 = new Book();
+        book2.setTitle("War of the Worlds");
+        book2.setAuthor("H. G. Wells");
+        book2.setDatePublished(new Date());
+        book2.setEdition("Kindle edition");
+        book2.setPageCount(180);
+        book2.setFormat("epub");
+        addBook(book2);
+
+        Book book3 = new Book();
+        book3.setTitle("The Jungle Book");
+        book3.setAuthor("Rudyard Kipling");
+        book3.setDatePublished(new Date());
+        book3.setEdition("Kindle edition");
+        book3.setPageCount(150);
+        book3.setFormat("epub");
+        addBook(book3);
     }
 }

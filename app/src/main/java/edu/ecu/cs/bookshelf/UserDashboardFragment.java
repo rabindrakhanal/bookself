@@ -1,5 +1,6 @@
 package edu.ecu.cs.bookshelf;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ public class UserDashboardFragment extends Fragment {
 
     private Button mButton1;
     private Button mButton2;
+    private Button mFindBookButton;
 
     public static UserDashboardFragment newInstance() {
         UserDashboardFragment fragment = new UserDashboardFragment();
@@ -39,11 +41,20 @@ public class UserDashboardFragment extends Fragment {
             }
         });
 
-        mButton1 = (Button) view.findViewById(R.id.activity_button2);
-        mButton1.setOnClickListener(new View.OnClickListener() {
+        mButton2 = (Button) view.findViewById(R.id.activity_button2);
+        mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Started Activity #2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mFindBookButton = (Button) view.findViewById(R.id.find_books);
+        mFindBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = BookListActivity.newIntent(getActivity());
+                startActivity(intent);
             }
         });
 

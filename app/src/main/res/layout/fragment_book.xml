@@ -25,7 +25,7 @@
         android:id="@+id/book_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_title"
+        android:text="Title of book"
         android:layout_gravity="left"
         android:paddingBottom="8dp"/>
 
@@ -40,7 +40,7 @@
         android:id="@+id/book_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_author"
+        android:text="Author of book"
         android:layout_gravity="left"
         android:paddingBottom="8dp"/>
 
@@ -55,7 +55,7 @@
         android:id="@+id/book_publication_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/book_publication_date"
+        android:text="Book publication date"
         android:layout_gravity="left"
         android:paddingBottom="8dp"/>
 
