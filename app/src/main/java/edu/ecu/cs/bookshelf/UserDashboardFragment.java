@@ -1,6 +1,5 @@
 package edu.ecu.cs.bookshelf;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +29,7 @@ public class UserDashboardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_user_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_dashboard, container, false);
 
         mButton1 = (Button) view.findViewById(R.id.activity_button1);
         mButton1.setOnClickListener(new View.OnClickListener() {

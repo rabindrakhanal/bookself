@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".UserDashboardActivity"></activity>
+        <activity android:name=".BookActivity"></activity>
     </application>
 
 </manifest>
