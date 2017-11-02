@@ -20,4 +20,9 @@
     <string name="successful_login_toast">You have successfully logged in!</string>
     <string name="no_existing_account_toast">There is no account for that email address.</string>
     <string name="incorrect_password_toast">Incorrect password.</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="add_to_shelf_button">Add to shelf</string>
+    <string name="date_published">Date Published</string>
+    <string name="added_to_shelf">This book has been added to your shelf.</string>
 </resources>

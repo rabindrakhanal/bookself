@@ -42,7 +42,7 @@ public class SignUpFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_sign_up, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         mFirstname = (EditText) view.findViewById(R.id.first_name_text_input);
         mFirstname.addTextChangedListener(new TextWatcher() {
