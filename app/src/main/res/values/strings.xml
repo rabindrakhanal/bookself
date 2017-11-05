@@ -20,4 +20,13 @@
     <string name="successful_login_toast">You have successfully logged in!</string>
     <string name="no_existing_account_toast">There is no account for that email address.</string>
     <string name="incorrect_password_toast">Incorrect password.</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 </resources>

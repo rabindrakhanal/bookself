@@ -3,11 +3,13 @@ package edu.ecu.cs.bookshelf;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
 
 /**
  * Created by Jennifer on 10/23/2017.
@@ -17,6 +19,7 @@ public class UserDashboardFragment extends Fragment {
 
     private Button mButton1;
     private Button mButton2;
+
 
     public static UserDashboardFragment newInstance() {
         UserDashboardFragment fragment = new UserDashboardFragment();
@@ -45,6 +48,10 @@ public class UserDashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Started Activity #2", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getActivity(), NavigationDrawer.class);
+                startActivity(i);
+
             }
         });
 
