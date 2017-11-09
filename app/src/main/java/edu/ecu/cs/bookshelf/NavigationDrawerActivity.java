@@ -104,7 +104,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
         else if (id == R.id.nav_share)
         {
             Toast.makeText(NavigationDrawerActivity.this, R.string.share_application, Toast.LENGTH_SHORT ).show();
-
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_TEXT, getString(R.string.send_app_info));
+            i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_subject));
+            i = Intent.createChooser(i, getString(R.string.send_report));
+            startActivity(i);
         }
         else if (id == R.id.nav_sign_out)
         {
