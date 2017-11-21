@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,6 +42,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
+        if (fragment == null) {
+            fragment = new HelloWorldFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit();
+        }
+
     }
 
     @Override
@@ -90,8 +102,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_search_books)
         {
-            Intent i = new Intent(NavigationDrawerActivity.this, BookListActivity.class);
-            startActivity(i);
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.fragment_container, BookListFragment.newInstance())
+                    .commit();
+//            Intent i = new Intent(NavigationDrawerActivity.this, BookListActivity.class);
+//            startActivity(i);
         }
         else if (id == R.id.nav_fav_books)
         {
