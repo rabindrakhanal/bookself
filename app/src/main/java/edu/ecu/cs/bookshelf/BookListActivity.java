@@ -12,8 +12,11 @@ import java.util.UUID;
 
 public class BookListActivity extends SingleFragmentActivity {
 
-    public static Intent newIntent(Context packageContext) {
+    public static final String EXTRA_USER_ID = "edu.ecu.cs.bookshelf.user_id";
+
+    public static Intent newIntent(Context packageContext, UUID userId) {
         Intent intent = new Intent(packageContext, BookListActivity.class);
+        intent.putExtra(EXTRA_USER_ID, userId);
         return intent;
     }
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 /**
  * Created by Jennifer on 10/23/2017.
  */
@@ -16,6 +18,7 @@ import android.widget.Toast;
 public class UserDashboardFragment extends Fragment {
 
     private Button mFindBookButton;
+    private UUID mUserId;
 
     public static UserDashboardFragment newInstance() {
         UserDashboardFragment fragment = new UserDashboardFragment();
@@ -25,6 +28,7 @@ public class UserDashboardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mUserId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_USER_ID);
     }
 
     @Override
@@ -35,7 +39,7 @@ public class UserDashboardFragment extends Fragment {
         mFindBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = BookListActivity.newIntent(getActivity());
+                Intent intent = BookListActivity.newIntent(getActivity(), mUserId);
                 startActivity(intent);
             }
         });

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -22,6 +23,7 @@ public class BookFragment extends Fragment {
     private TextView mBookAuthorTextView;
     private TextView mBookDateTextView;
     private Button mAddToShelfButton;
+    private UUID mUserId;
 
     public static BookFragment newInstance() {
         BookFragment fragment = new BookFragment();
@@ -32,6 +34,7 @@ public class BookFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID bookId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_BOOK_ID);
+        mUserId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_USER_ID);
         mBook = BookBase.getBookBase(getActivity()).getBook(bookId);
     }
 
@@ -52,7 +55,20 @@ public class BookFragment extends Fragment {
         mAddToShelfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
+                if (mUserId != null) {
+                    UserBook userBook = new UserBook();
+                    userBook.setBookId(mBook.getId());
+                    userBook.setUserId(mUserId);
+                    userBook.setRead(false);
+                    userBook.setFavorite(false);
+                    userBook.setBorrowed(false);
+                    userBook.setDateCreated(new Date());
+                    userBook.setDateModified(new Date());
+                    UserBookBase.getUserBookBase(getActivity()).addUserBook(userBook);
+                    Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), R.string.error_adding_to_shelf, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
