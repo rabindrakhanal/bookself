@@ -27,4 +27,5 @@
     <string name="added_to_shelf">This book has been added to your shelf.</string>
     <string name="error_adding_to_shelf">Cannot add book to shelf</string>
     <string name="user_books">Your Books</string>
+    <string name="book_added">Book added to shelf</string>
 </resources>

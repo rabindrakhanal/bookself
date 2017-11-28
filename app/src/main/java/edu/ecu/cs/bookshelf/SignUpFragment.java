@@ -177,7 +177,8 @@ public class SignUpFragment extends Fragment {
                         Toast.makeText(getActivity(), "Account created for " + newUserFirstName + " " + newUserLastName + "!",
                                 Toast.LENGTH_SHORT).show();
 
-                        Intent intent = UserDashboardActivity.newIntent(getActivity(), user.getId());
+                        LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
+                        Intent intent = UserDashboardActivity.newIntent(getActivity());
                         startActivity(intent);
                     }
                 }

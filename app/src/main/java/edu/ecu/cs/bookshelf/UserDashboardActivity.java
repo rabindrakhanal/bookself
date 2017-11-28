@@ -12,11 +12,8 @@ import java.util.UUID;
 
 public class UserDashboardActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_USER_ID = "edu.ecu.cs.bookshelf.user_id";
-
-    public static Intent newIntent(Context packageContext, UUID userId) {
+    public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, UserDashboardActivity.class);
-        intent.putExtra(EXTRA_USER_ID, userId);
         return intent;
     }
 

@@ -20,8 +20,6 @@ import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
 
-    private static final String EXTRA_USER_ID = "ecu.edu.cs.bookshelf.user_id";
-
     private EditText mEmailAddress;
     private EditText mPassword;
     private Button mSubmitButton;
@@ -86,7 +84,8 @@ public class LoginFragment extends Fragment {
             if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
                 User user = UserBase.getUserBase(getActivity()).getUserByEmail(mUser.get("emailAddress"));
                 if (user.getEncryptedPassword().equals(mUser.get("encryptedPassword"))) {
-                    Intent intent = UserDashboardActivity.newIntent(getActivity(), user.getId());
+                    LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
+                    Intent intent = UserDashboardActivity.newIntent(getActivity());
                     startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), R.string.incorrect_password_toast, Toast.LENGTH_SHORT).show();

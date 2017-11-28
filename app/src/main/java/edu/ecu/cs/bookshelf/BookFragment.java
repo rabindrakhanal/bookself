@@ -34,7 +34,7 @@ public class BookFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID bookId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_BOOK_ID);
-        mUserId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_USER_ID);
+        mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
         mBook = BookBase.getBookBase(getActivity()).getBook(bookId);
     }
 
@@ -52,6 +52,11 @@ public class BookFragment extends Fragment {
         mBookDateTextView.setText(mBook.getDatePublished().toString());
 
         mAddToShelfButton = (Button) view.findViewById(R.id.add_to_shelf_button);
+        UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
+        if (userBookBase.getUserBook(mUserId, mBook.getId()) == null) {
+            mAddToShelfButton.setEnabled(false);
+            mAddToShelfButton.setText(R.string.book_added);
+        }
         mAddToShelfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +71,8 @@ public class BookFragment extends Fragment {
                     userBook.setDateModified(new Date());
                     UserBookBase.getUserBookBase(getActivity()).addUserBook(userBook);
                     Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
+                    mAddToShelfButton.setEnabled(false);
+                    mAddToShelfButton.setText(R.string.book_added);
                 } else {
                     Toast.makeText(getActivity(), R.string.error_adding_to_shelf, Toast.LENGTH_SHORT).show();
                 }

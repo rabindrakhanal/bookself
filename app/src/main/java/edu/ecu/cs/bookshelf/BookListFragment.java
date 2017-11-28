@@ -21,7 +21,6 @@ public class BookListFragment extends Fragment {
 
     private RecyclerView mBookRecyclerView;
     private BookAdapter mBookAdapter;
-    private UUID mUserId;
 
     public static BookListFragment newInstance() {
         BookListFragment fragment = new BookListFragment();
@@ -34,7 +33,6 @@ public class BookListFragment extends Fragment {
         if (BookBase.getBookBase(getActivity()).getBooks().size() == 0){
             BookBase.getBookBase(getActivity()).addSampleData();
         }
-        mUserId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_USER_ID);
     }
 
     @Override
@@ -83,7 +81,7 @@ public class BookListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId(), mUserId);
+            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId());
             startActivity(intent);
         }
     }

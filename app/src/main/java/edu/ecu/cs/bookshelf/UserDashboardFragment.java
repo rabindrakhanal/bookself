@@ -35,7 +35,7 @@ public class UserDashboardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUserId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_USER_ID);
+        mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class UserDashboardFragment extends Fragment {
         mFindBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = BookListActivity.newIntent(getActivity(), mUserId);
+                Intent intent = BookListActivity.newIntent(getActivity());
                 startActivity(intent);
             }
         });
@@ -105,7 +105,7 @@ public class UserDashboardFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId(), mUserId);
+            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId());
             startActivity(intent);
         }
     }
