@@ -40,10 +40,11 @@ public class UserBookBase {
         mDatabase.insert(UserBookTable.NAME, null, values);
     }
 
-    public List<UserBook> getUserBooks() {
+    public List<UserBook> getUserBooks(UUID userId) {
         List<UserBook> userBooks = new ArrayList<>();
 
-        BookshelfCursorWrapper cursor = queryUserBooks(null, null);
+        BookshelfCursorWrapper cursor = queryUserBooks(UserBookTable.Cols.USER_ID + " = ?",
+                new String[] { userId.toString() });
 
         try {
             cursor.moveToFirst();
