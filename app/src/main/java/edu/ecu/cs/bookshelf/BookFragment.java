@@ -46,7 +46,7 @@ public class BookFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book, container, false);
+        final View view = inflater.inflate(R.layout.fragment_book, container, false);
 
         mBookTitleTextView = (TextView) view.findViewById(R.id.book_title);
         mBookTitleTextView.setText(mBook.getTitle());
@@ -61,42 +61,7 @@ public class BookFragment extends Fragment {
         final UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
         final UserBook userBook = userBookBase.getUserBook(mBook.getId(), mUserId);
         if (userBook != null) {
-            mAddToShelfButton.setEnabled(false);
-            mAddToShelfButton.setText(R.string.book_added);
-
-            mReadCheckbox = (CheckBox) view.findViewById(R.id.read_checkbox);
-            mReadCheckbox.setChecked(userBook.getRead());
-            mReadCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    userBook.setRead(b);
-                    userBookBase.updateUserBook(userBook);
-                }
-            });
-
-            mFavoriteCheckbox = (CheckBox) view.findViewById(R.id.favorite_checkbox);
-            mFavoriteCheckbox.setChecked(userBook.getFavorite());
-            mFavoriteCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    userBook.setFavorite(b);
-                    userBookBase.updateUserBook(userBook);
-                }
-            });
-
-            mBorrowedCheckbox = (CheckBox) view.findViewById(R.id.borrowed_checkbox);
-            mBorrowedCheckbox.setChecked(userBook.getBorrowed());
-            mBorrowedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    userBook.setBorrowed(b);
-                    userBookBase.updateUserBook(userBook);
-                }
-            });
-
-            mReadCheckbox.setVisibility(View.VISIBLE);
-            mFavoriteCheckbox.setVisibility(View.VISIBLE);
-            mBorrowedCheckbox.setVisibility(View.VISIBLE);
+            enableCheckboxes(view);
         }
         mAddToShelfButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +77,7 @@ public class BookFragment extends Fragment {
                     userBook.setDateModified(new Date());
                     UserBookBase.getUserBookBase(getActivity()).addUserBook(userBook);
                     Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
-                    mAddToShelfButton.setEnabled(false);
-                    mAddToShelfButton.setText(R.string.book_added);
+                    enableCheckboxes(view);
                 } else {
                     Toast.makeText(getActivity(), R.string.error_adding_to_shelf, Toast.LENGTH_SHORT).show();
                 }
@@ -121,5 +85,47 @@ public class BookFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void enableCheckboxes(View view) {
+        final UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
+        final UserBook userBook = userBookBase.getUserBook(mBook.getId(), mUserId);
+
+        mAddToShelfButton.setEnabled(false);
+        mAddToShelfButton.setText(R.string.book_added);
+
+        mReadCheckbox = (CheckBox) view.findViewById(R.id.read_checkbox);
+        mReadCheckbox.setChecked(userBook.getRead());
+        mReadCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                userBook.setRead(b);
+                userBookBase.updateUserBook(userBook);
+            }
+        });
+
+        mFavoriteCheckbox = (CheckBox) view.findViewById(R.id.favorite_checkbox);
+        mFavoriteCheckbox.setChecked(userBook.getFavorite());
+        mFavoriteCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                userBook.setFavorite(b);
+                userBookBase.updateUserBook(userBook);
+            }
+        });
+
+        mBorrowedCheckbox = (CheckBox) view.findViewById(R.id.borrowed_checkbox);
+        mBorrowedCheckbox.setChecked(userBook.getBorrowed());
+        mBorrowedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                userBook.setBorrowed(b);
+                userBookBase.updateUserBook(userBook);
+            }
+        });
+
+        mReadCheckbox.setVisibility(View.VISIBLE);
+        mFavoriteCheckbox.setVisibility(View.VISIBLE);
+        mBorrowedCheckbox.setVisibility(View.VISIBLE);
     }
 }
