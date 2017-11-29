@@ -98,6 +98,7 @@ public class BookBase {
         values.put(BookTable.Cols.FORMAT, book.getEdition());
         values.put(BookTable.Cols.DATE_CREATED, book.getDateCreated().getTime());
         values.put(BookTable.Cols.DATE_MODIFIED, book.getDateModified().getTime());
+        values.put(BookTable.Cols.COVER_URL, book.getCoverUrl());
 
         return values;
     }
