@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import java.util.UUID;
+
 /**
  * Created by Jennifer on 10/23/2017.
  */

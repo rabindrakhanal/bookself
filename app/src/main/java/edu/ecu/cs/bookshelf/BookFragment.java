@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -22,6 +25,11 @@ public class BookFragment extends Fragment {
     private TextView mBookAuthorTextView;
     private TextView mBookDateTextView;
     private Button mAddToShelfButton;
+    private CheckBox mReadCheckbox;
+    private CheckBox mFavoriteCheckbox;
+    private CheckBox mBorrowedCheckbox;
+
+    private UUID mUserId;
 
     public static BookFragment newInstance() {
         BookFragment fragment = new BookFragment();
@@ -32,6 +40,7 @@ public class BookFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID bookId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_BOOK_ID);
+        mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
         mBook = BookBase.getBookBase(getActivity()).getBook(bookId);
     }
 
@@ -49,10 +58,65 @@ public class BookFragment extends Fragment {
         mBookDateTextView.setText(mBook.getDatePublished().toString());
 
         mAddToShelfButton = (Button) view.findViewById(R.id.add_to_shelf_button);
+        final UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
+        final UserBook userBook = userBookBase.getUserBook(mBook.getId(), mUserId);
+        if (userBook != null) {
+            mAddToShelfButton.setEnabled(false);
+            mAddToShelfButton.setText(R.string.book_added);
+
+            mReadCheckbox = (CheckBox) view.findViewById(R.id.read_checkbox);
+            mReadCheckbox.setChecked(userBook.getRead());
+            mReadCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    userBook.setRead(b);
+                    userBookBase.updateUserBook(userBook);
+                }
+            });
+
+            mFavoriteCheckbox = (CheckBox) view.findViewById(R.id.favorite_checkbox);
+            mFavoriteCheckbox.setChecked(userBook.getFavorite());
+            mFavoriteCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    userBook.setFavorite(b);
+                    userBookBase.updateUserBook(userBook);
+                }
+            });
+
+            mBorrowedCheckbox = (CheckBox) view.findViewById(R.id.borrowed_checkbox);
+            mBorrowedCheckbox.setChecked(userBook.getBorrowed());
+            mBorrowedCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    userBook.setBorrowed(b);
+                    userBookBase.updateUserBook(userBook);
+                }
+            });
+
+            mReadCheckbox.setVisibility(View.VISIBLE);
+            mFavoriteCheckbox.setVisibility(View.VISIBLE);
+            mBorrowedCheckbox.setVisibility(View.VISIBLE);
+        }
         mAddToShelfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
+                if (mUserId != null) {
+                    UserBook userBook = new UserBook();
+                    userBook.setBookId(mBook.getId());
+                    userBook.setUserId(mUserId);
+                    userBook.setRead(false);
+                    userBook.setFavorite(false);
+                    userBook.setBorrowed(false);
+                    userBook.setDateCreated(new Date());
+                    userBook.setDateModified(new Date());
+                    UserBookBase.getUserBookBase(getActivity()).addUserBook(userBook);
+                    Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
+                    mAddToShelfButton.setEnabled(false);
+                    mAddToShelfButton.setText(R.string.book_added);
+                } else {
+                    Toast.makeText(getActivity(), R.string.error_adding_to_shelf, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

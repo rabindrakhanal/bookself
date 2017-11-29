@@ -25,4 +25,10 @@
     <string name="add_to_shelf_button">Add to shelf</string>
     <string name="date_published">Date Published</string>
     <string name="added_to_shelf">This book has been added to your shelf.</string>
+    <string name="error_adding_to_shelf">Cannot add book to shelf</string>
+    <string name="user_books">Your Books</string>
+    <string name="book_added">Book added to shelf</string>
+    <string name="read_book">Read?</string>
+    <string name="favorite_book">Favorite?</string>
+    <string name="borrowed_book">Borrowed?</string>
 </resources>

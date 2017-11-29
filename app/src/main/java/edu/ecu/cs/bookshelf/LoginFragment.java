@@ -84,6 +84,7 @@ public class LoginFragment extends Fragment {
             if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
                 User user = UserBase.getUserBase(getActivity()).getUserByEmail(mUser.get("emailAddress"));
                 if (user.getEncryptedPassword().equals(mUser.get("encryptedPassword"))) {
+                    LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
                     Intent intent = UserDashboardActivity.newIntent(getActivity());
                     startActivity(intent);
                 } else {

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class LoginActivity extends SingleFragmentActivity {
 
-    public static Intent newIntent(Context packageContext, UUID id) {
+    public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, LoginActivity.class);
         return intent;
     }

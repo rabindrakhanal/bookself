@@ -40,10 +40,11 @@ public class UserBookBase {
         mDatabase.insert(UserBookTable.NAME, null, values);
     }
 
-    public List<UserBook> getUserBooks() {
+    public List<UserBook> getUserBooks(UUID userId) {
         List<UserBook> userBooks = new ArrayList<>();
 
-        BookshelfCursorWrapper cursor = queryUserBooks(null, null);
+        BookshelfCursorWrapper cursor = queryUserBooks(UserBookTable.Cols.USER_ID + " = ?",
+                new String[] { userId.toString() });
 
         try {
             cursor.moveToFirst();
@@ -58,8 +59,9 @@ public class UserBookBase {
         return userBooks;
     }
 
-    public UserBook getUserBook(UUID id) {
-        BookshelfCursorWrapper cursor = queryUserBooks(UserBookTable.Cols.UUID + " = ?", new String[] { id.toString() });
+    public UserBook getUserBook(UUID bookId, UUID userId) {
+        BookshelfCursorWrapper cursor = queryUserBooks(UserBookTable.Cols.BOOK_ID + " = ? AND " +
+                UserBookTable.Cols.USER_ID + " = ?", new String[] { bookId.toString(), userId.toString() });
 
         try {
             if (cursor.getCount() == 0) {

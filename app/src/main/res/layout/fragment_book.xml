@@ -67,4 +67,25 @@
         android:layout_height="wrap_content"
         android:text="@string/add_to_shelf_button"/>
 
+    <CheckBox
+        android:id="@+id/read_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/read_book"
+        android:visibility="gone"/>
+
+    <CheckBox
+        android:id="@+id/favorite_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite_book"
+        android:visibility="gone"/>
+
+    <CheckBox
+        android:id="@+id/borrowed_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/borrowed_book"
+        android:visibility="gone"/>
+
 </LinearLayout>
