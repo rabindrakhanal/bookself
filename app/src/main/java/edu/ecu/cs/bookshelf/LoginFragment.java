@@ -110,8 +110,8 @@ public class LoginFragment extends Fragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = SignUpActivity.newIntent(getActivity());
-//                startActivity(intent);
+                Intent intent = SignUpActivity.newIntent(getActivity());
+                startActivity(intent);
                 signIn();
             }
         });
@@ -175,6 +175,8 @@ public class LoginFragment extends Fragment {
         if (account != null) {
             //account.getDisplayName();
             //account.getEmail();
+            String personName = account.getDisplayName();
+            String personEmail = account.getEmail();
 
 
         } else {
