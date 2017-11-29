@@ -11,7 +11,7 @@
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal"
         android:cropToPadding="true"
-        android:src="@drawable/ic_book_cover"
+        android:src="@mipmap/ic_launcher_bookshelf"
         android:paddingBottom="8dp"/>
 
     <TextView
