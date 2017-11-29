@@ -25,10 +25,6 @@ public class LoginActivity extends SingleFragmentActivity {
     }
 
 
-    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestProfile()
-            .build();
 
-    mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 }
