@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import java.util.UUID;
 
 /**
@@ -21,4 +23,12 @@ public class LoginActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return LoginFragment.newInstance();
     }
+
+
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestProfile()
+            .build();
+
+    mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 }
