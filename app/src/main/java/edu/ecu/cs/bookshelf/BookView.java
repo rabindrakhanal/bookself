@@ -45,27 +45,27 @@ public class BookView implements Parcelable {
         return "http://covers.openlibrary.org/b/olid/" + openLibraryId + "-L.jpg?default=false";
     }
 
-    // Returns a Book given the expected JSON
-    public static Book fromJson(JSONObject jsonObject) {
-        Book book = new Book();
+    // Returns a BookView given the expected JSON
+    public static BookView fromJson(JSONObject jsonObject) {
+        BookView bookView = new BookView();
         try {
             // Deserialize json into object fields
             // Check if a cover edition is available
             if (jsonObject.has("cover_edition_key")) {
-                book.openLibraryId = jsonObject.getString("cover_edition_key");
+                bookView.openLibraryId = jsonObject.getString("cover_edition_key");
             } else if(jsonObject.has("edition_key")) {
                 final JSONArray ids = jsonObject.getJSONArray("edition_key");
-                book.openLibraryId = ids.getString(0);
+                bookView.openLibraryId = ids.getString(0);
             }
-            book.title = jsonObject.has("title_suggest") ? jsonObject.getString("title_suggest") : "";
-            book.author = getAuthor(jsonObject);
-            book.publisher = getPublisher(jsonObject);
+            bookView.title = jsonObject.has("title_suggest") ? jsonObject.getString("title_suggest") : "";
+            bookView.author = getAuthor(jsonObject);
+            bookView.publisher = getPublisher(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
         // Return new object
-        return book;
+        return bookView;
     }
 
     // Return comma separated author list when there is more than one author
@@ -96,8 +96,8 @@ public class BookView implements Parcelable {
     }
 
     // Decodes array of book json results into business model objects
-    public static ArrayList<Book> fromJson(JSONArray jsonArray) {
-        ArrayList<Book> books = new ArrayList<Book>(jsonArray.length());
+    public static ArrayList<BookView> fromJson(JSONArray jsonArray) {
+        ArrayList<BookView> bookViews = new ArrayList<BookView>(jsonArray.length());
         // Process each result in json array, decode and convert to business
         // object
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -108,12 +108,12 @@ public class BookView implements Parcelable {
                 e.printStackTrace();
                 continue;
             }
-            Book book = Book.fromJson(bookJson);
-            if (book != null) {
-                books.add(book);
+            BookView bookView = BookView.fromJson(bookJson);
+            if (bookView != null) {
+                bookViews.add(bookView);
             }
         }
-        return books;
+        return bookViews;
     }
 
     public BookView() {
@@ -139,14 +139,13 @@ public class BookView implements Parcelable {
         this.publisher = in.readString();
     }
 
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
-        public Book createFromParcel(Parcel source) {
-            return new Book(source);
+    public static final Creator<BookView> CREATOR = new Creator<BookView>() {
+        public BookView createFromParcel(Parcel source) {
+            return new BookView(source);
         }
 
-        public Book[] newArray(int size) {
-            return new Book[size];
+        public BookView[] newArray(int size) {
+            return new BookView[size];
         }
     };
 }
-

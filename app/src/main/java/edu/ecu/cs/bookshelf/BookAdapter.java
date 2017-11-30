@@ -17,6 +17,7 @@ import android.widget.TextView;
 //import edu.ecu.cs.bookshelf.models.Book;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.ArrayList;
 
 public class BookAdapter extends ArrayAdapter<Book> {
