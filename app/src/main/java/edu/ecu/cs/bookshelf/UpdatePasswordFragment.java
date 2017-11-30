@@ -101,10 +101,10 @@ public class UpdatePasswordFragment extends Fragment {
             public void onClick(View view) {
 
             if(old_password.getText().toString().equals(UserBase.getUserBase(getActivity()).getUser(user.getId()).getEncryptedPassword())){
-                    if(new_password.getText().toString().equals(confirm_password.getText().toString())|| new_password.getText().toString()!= null ) {
-                        user.setEncryptedPassword(new_password.getText().toString());
+                    if(updatepassword.get("new_password").equals(updatepassword.get("confirm_password"))&& updatepassword.get("new_password")!= null ) {
+                        user.setEncryptedPassword(updatepassword.get("new_password"));
                         UserBase.getUserBase(getActivity()).updateUser(user);
-                        Toast.makeText(getActivity(),"updateSuccessfull", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.password_updated, Toast.LENGTH_SHORT).show();
                         getActivity().finish();
                     }
 
