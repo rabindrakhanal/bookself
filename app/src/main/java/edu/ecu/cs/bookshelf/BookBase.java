@@ -39,7 +39,7 @@ public class BookBase {
 
     public void addBook(Book book) {
         ContentValues values = getContentValues(book);
-        mDatabase.insert(BookTable.NAME, null, values);
+        long rowinserted = mDatabase.insert(BookTable.NAME, null, values);
     }
 
     public List<Book> getBooks() {
@@ -98,6 +98,8 @@ public class BookBase {
         values.put(BookTable.Cols.FORMAT, book.getEdition());
         values.put(BookTable.Cols.DATE_CREATED, book.getDateCreated().getTime());
         values.put(BookTable.Cols.DATE_MODIFIED, book.getDateModified().getTime());
+        values.put(BookTable.Cols.LATITUDE, book.getLatitude());
+        values.put(BookTable.Cols.LONGITUDE, book.getLongitude());
 
         return values;
     }

@@ -1,11 +1,17 @@
 package edu.ecu.cs.bookshelf;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,16 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
+
 /**
  * Created by Jennifer on 10/23/2017.
  */
 
 public class UserDashboardFragment extends Fragment {
 
+    private static final String EXTRA_USERID = "userid";
+
     private Button mFindBookButton;
     private RecyclerView mRecyclerView;
     private UserBookAdapter mUserBookAdapter;
     private UUID mUserId;
+    private TextView title;
 
     public static UserDashboardFragment newInstance() {
         UserDashboardFragment fragment = new UserDashboardFragment();
@@ -36,11 +47,17 @@ public class UserDashboardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
+
+        // dont remove this when conflict occurs
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_dashboard, container, false);
+
+        title = (TextView) view.findViewById(R.id.welcome_title);
+        title.setText("Welcome " + UserBase.getUserBase(getActivity()).getUser(mUserId).getFirstName());
 
         mFindBookButton = (Button) view.findViewById(R.id.find_books);
         mFindBookButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +100,27 @@ public class UserDashboardFragment extends Fragment {
         }
     }
 
+    // mycode
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_user_dashboard, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.launch_map:
+                Intent intent = new Intent(getActivity(), BookMapsActivity.class);
+                intent.putExtra(EXTRA_USERID, mUserId);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class UserBookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Book mBook;
@@ -99,6 +137,16 @@ public class UserDashboardFragment extends Fragment {
 
         public void bind(Book book) {
             mBook = book;
+            UserBook userBook = UserBookBase.getUserBookBase(getActivity()).getUserBook(mBook.getId(), mUserId);
+            if(userBook.getRead()){
+                mTitleTextView.setTextColor(Color.parseColor("#4678F2"));
+            }else if(userBook.getBorrowed()){
+                mTitleTextView.setTextColor(Color.parseColor("#F55F7A"));
+            }else if(userBook.getFavorite()){
+                mTitleTextView.setTextColor(Color.parseColor("#5F11E7"));
+            } else{
+                mTitleTextView.setTextColor(Color.BLACK);
+            }
             mTitleTextView.setText(mBook.getTitle());
             mAuthorTextView.setText(mBook.getAuthor());
         }
@@ -137,5 +185,17 @@ public class UserDashboardFragment extends Fragment {
         public void setBooks(List<Book> books) {
             mBooks = books;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 }

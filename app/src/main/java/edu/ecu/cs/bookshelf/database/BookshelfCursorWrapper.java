@@ -52,6 +52,8 @@ public class BookshelfCursorWrapper extends CursorWrapper {
         String format = getString(getColumnIndex(BookTable.Cols.FORMAT));
         long dateCreated = getLong(getColumnIndex(BookTable.Cols.DATE_CREATED));
         long dateModified = getLong(getColumnIndex(BookTable.Cols.DATE_MODIFIED));
+        double latitude = getDouble(getColumnIndex(BookTable.Cols.LATITUDE));
+        double longitude = getDouble(getColumnIndex(BookTable.Cols.LONGITUDE));
 
         Book book = new Book(UUID.fromString(uuidString));
         book.setTitle(title);
@@ -62,6 +64,8 @@ public class BookshelfCursorWrapper extends CursorWrapper {
         book.setFormat(format);
         book.setDateCreated(new Date(dateCreated));
         book.setDateModified(new Date(dateModified));
+        book.setLatitude(latitude);
+        book.setLongitude(longitude);
 
         return book;
     }

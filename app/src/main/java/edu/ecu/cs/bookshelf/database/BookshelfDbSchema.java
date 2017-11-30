@@ -18,6 +18,8 @@ public class BookshelfDbSchema {
             public static final String FORMAT = "format";
             public static final String DATE_CREATED = "date_created";
             public static final String DATE_MODIFIED = "date_modified";
+            public static final String LATITUDE = "latitude";
+            public static final String LONGITUDE = "longitude";
         }
     }
 
