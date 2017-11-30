@@ -18,6 +18,7 @@ public class Book implements Serializable {
     private String mFormat;
     private Date mDateCreated;
     private Date mDateModified;
+    private String mCoverUrl;
 
     public Book() {
         this(UUID.randomUUID());
@@ -99,5 +100,13 @@ public class Book implements Serializable {
 
     public void setDateModified(Date dateModified) {
         mDateModified = dateModified;
+    }
+
+    public String getCoverUrl() {
+        return mCoverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        mCoverUrl = coverUrl;
     }
 }

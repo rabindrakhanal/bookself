@@ -43,7 +43,8 @@ public class BookshelfHelper extends SQLiteOpenHelper {
                 BookTable.Cols.PAGE_COUNT + ", " +
                 BookTable.Cols.FORMAT + ", " +
                 BookTable.Cols.DATE_CREATED + ", " +
-                BookTable.Cols.DATE_MODIFIED + ")"
+                BookTable.Cols.DATE_MODIFIED + ", " +
+                BookTable.Cols.COVER_URL + ")"
         );
 
         db.execSQL("create table " + UserBookTable.NAME +

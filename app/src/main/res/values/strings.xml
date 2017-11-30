@@ -38,6 +38,10 @@
     <string name="read_book">Read?</string>
     <string name="favorite_book">Favorite?</string>
     <string name="borrowed_book">Borrowed?</string>
-    <string name="no_email_found">No Email Found</string>
+
+   
+
+
+    <string name="password_updated">Successfully updated password.</string>
 
 </resources>

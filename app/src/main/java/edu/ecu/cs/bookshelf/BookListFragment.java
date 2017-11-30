@@ -1,6 +1,7 @@
 package edu.ecu.cs.bookshelf;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Jennifer on 10/29/2017.
@@ -21,6 +22,7 @@ public class BookListFragment extends Fragment {
 
     private RecyclerView mBookRecyclerView;
     private BookAdapter mBookAdapter;
+    private List<Book> mBookItems = new ArrayList<>();
 
     public static BookListFragment newInstance() {
         BookListFragment fragment = new BookListFragment();
@@ -30,9 +32,8 @@ public class BookListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (BookBase.getBookBase(getActivity()).getBooks().size() == 0){
-            BookBase.getBookBase(getActivity()).addSampleData();
-        }
+        setRetainInstance(true);
+        new FetchItemsTask().execute();
     }
 
     @Override
@@ -44,7 +45,15 @@ public class BookListFragment extends Fragment {
 
         updateUI();
 
+        setupAdapter();
+
         return view;
+    }
+
+    private void setupAdapter() {
+        if (isAdded()) {
+            mBookRecyclerView.setAdapter(new BookAdapter(mBookItems));
+        }
     }
 
     private void updateUI() {
@@ -81,7 +90,12 @@ public class BookListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId());
+            Book selectedBook = BookBase.getBookBase(getActivity()).findBook(mBook);
+            if (selectedBook == null) {
+                BookBase.getBookBase(getActivity()).addBook(mBook);
+                selectedBook = BookBase.getBookBase(getActivity()).getBook(mBook.getId());
+            }
+            Intent intent = BookActivity.newIntent(getActivity(), selectedBook.getId());
             startActivity(intent);
         }
     }
@@ -93,8 +107,7 @@ public class BookListFragment extends Fragment {
         }
 
         @Override
-        public BookHolder
-        onCreateViewHolder(ViewGroup parent, int viewType) {
+        public BookHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             return new BookHolder(layoutInflater, parent);
         }
@@ -112,6 +125,19 @@ public class BookListFragment extends Fragment {
 
         public void setBooks(List<Book> books) {
             mBooks = books;
+        }
+    }
+
+    private class FetchItemsTask extends AsyncTask<Void,Void,List<Book>> {
+        @Override
+        protected List<Book> doInBackground(Void... params) {
+            return new BookFetcher().fetchItems();
+        }
+
+        @Override
+        protected void onPostExecute(List<Book> items) {
+            mBookItems = items;
+            setupAdapter();
         }
     }
 }

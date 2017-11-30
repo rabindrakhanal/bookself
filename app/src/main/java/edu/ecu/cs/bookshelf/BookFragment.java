@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.UUID;
@@ -28,6 +31,7 @@ public class BookFragment extends Fragment {
     private CheckBox mReadCheckbox;
     private CheckBox mFavoriteCheckbox;
     private CheckBox mBorrowedCheckbox;
+    private ImageView mBookCover;
 
     private UUID mUserId;
 
@@ -47,6 +51,13 @@ public class BookFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_book, container, false);
+
+        if (mBook.getCoverUrl() != null && mBook.getCoverUrl() != "") {
+            mBookCover = (ImageView) view.findViewById(R.id.book_cover);
+            Picasso.with(getActivity()).load(mBook.getCoverUrl())
+                    .placeholder(R.drawable.ic_book_cover)
+                    .into(mBookCover);
+        }
 
         mBookTitleTextView = (TextView) view.findViewById(R.id.book_title);
         mBookTitleTextView.setText(mBook.getTitle());
