@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class UserDashboardFragment extends Fragment {
 
-    private Button mFindBookButton;
+   // private Button mFindBookButton;
     private RecyclerView mRecyclerView;
     private UserBookAdapter mUserBookAdapter;
     private UUID mUserId;
@@ -65,14 +65,14 @@ public class UserDashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_dashboard, container, false);
 
-        mFindBookButton = (Button) view.findViewById(R.id.find_books);
+       /* mFindBookButton = (Button) view.findViewById(R.id.find_books);
         mFindBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = BookListActivity.newIntent(getActivity());
                 startActivity(intent);
             }
-        });
+        });*/
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.user_book_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
