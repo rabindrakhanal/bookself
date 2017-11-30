@@ -59,7 +59,6 @@ public class BookFetcher {
                     .appendQueryParameter("limit", "25")
                     .build().toString();
             String jsonString = getUrlString(url);
-            Log.i(TAG, "Received JSON: " + jsonString);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
         } catch (IOException ioe) {
@@ -82,8 +81,8 @@ public class BookFetcher {
             item.setEdition("Kindle Edition");
             item.setPageCount(150);
             item.setFormat("epub");
-            if (bookJsonObject.has("cover_i")) {
-                item.setCoverUrl("http://covers.openlibrary.org/b/id/"+bookJsonObject.getString("cover_i")+"-S.jpg");
+            if (bookJsonObject.has("cover_id")) {
+                item.setCoverUrl("http://covers.openlibrary.org/b/id/"+bookJsonObject.getString("cover_id")+"-S.jpg");
             }
             items.add(item);
         }
