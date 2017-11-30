@@ -32,9 +32,6 @@ public class BookListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (BookBase.getBookBase(getActivity()).getBooks().size() == 0){
-            BookBase.getBookBase(getActivity()).addSampleData();
-        }
         setRetainInstance(true);
         new FetchItemsTask().execute();
     }
@@ -93,7 +90,12 @@ public class BookListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = BookActivity.newIntent(getActivity(), mBook.getId());
+            Book selectedBook = BookBase.getBookBase(getActivity()).findBook(mBook);
+            if (selectedBook == null) {
+                BookBase.getBookBase(getActivity()).addBook(mBook);
+                selectedBook = BookBase.getBookBase(getActivity()).getBook(mBook.getId());
+            }
+            Intent intent = BookActivity.newIntent(getActivity(), selectedBook.getId());
             startActivity(intent);
         }
     }

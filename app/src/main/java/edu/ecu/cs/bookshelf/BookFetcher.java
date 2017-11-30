@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,6 +78,10 @@ public class BookFetcher {
             Book item = new Book();
             item.setTitle(bookJsonObject.getString("title"));
             item.setAuthor(bookJsonObject.getJSONArray("authors").getJSONObject(0).getString("name"));
+            item.setDatePublished(new Date());
+            item.setEdition("Kindle Edition");
+            item.setPageCount(150);
+            item.setFormat("epub");
             if (bookJsonObject.has("cover_i")) {
                 item.setCoverUrl("http://covers.openlibrary.org/b/id/"+bookJsonObject.getString("cover_i")+"-S.jpg");
             }

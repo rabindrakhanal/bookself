@@ -82,6 +82,22 @@ public class BookBase {
         mDatabase.update(BookTable.NAME, values, BookTable.Cols.UUID + " = ?", new String[] { uuidString });
     }
 
+    public Book findBook(Book book) {
+        BookshelfCursorWrapper cursor = queryBooks(BookTable.Cols.TITLE + " = ? AND " +
+                BookTable.Cols.AUTHOR + " = ?", new String[] { book.getTitle(), book.getAuthor() });
+
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getBook();
+        } finally {
+            cursor.close();
+        }
+    }
+
     private BookshelfCursorWrapper queryBooks(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(BookTable.NAME, null, whereClause, whereArgs, null, null, null);
         return new BookshelfCursorWrapper(cursor);
