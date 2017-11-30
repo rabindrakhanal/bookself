@@ -10,10 +10,7 @@ import java.util.UUID;
  * Created by Jennifer on 10/29/2017.
  */
 
-import com.codepath.android.booksearch.R;
-import com.codepath.android.booksearch.adapters.BookAdapter;
-import com.codepath.android.booksearch.models.Book;
-import com.codepath.android.booksearch.net.BookClient;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;

@@ -4,12 +4,11 @@ package edu.ecu.cs.bookshelf;
  * Created by venkateshpala on 11/29/17.
  */
 
+import android.support.v7.widget.ShareActionProvider;
 import android.view.MenuItem;
-import android.widget.ShareActionProvider;
 
 
-        import com.codepath.android.booksearch.R;
-        import com.codepath.android.booksearch.models.Book;
+
         import com.squareup.picasso.Callback;
         import com.squareup.picasso.Picasso;
 
@@ -23,10 +22,8 @@ import android.widget.ShareActionProvider;
         import android.support.v4.view.MenuItemCompat;
         import android.support.v7.app.ActionBar;
         import android.support.v7.app.AppCompatActivity;
-
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.widget.ImageView;
+import android.view.Menu;
+import android.widget.ImageView;
         import android.widget.TextView;
 
         import java.io.File;
@@ -39,7 +36,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private TextView tvAuthor;
     private TextView tvPublisher;
 
-    private android.widget.ShareActionProvider mShareActionProvider;
+    private ShareActionProvider mShareActionProvider;
     private Intent shareIntent;
 
     @Override
