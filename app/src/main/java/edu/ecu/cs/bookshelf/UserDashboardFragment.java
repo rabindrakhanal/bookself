@@ -55,6 +55,8 @@ public class UserDashboardFragment extends Fragment {
         }
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,17 +65,16 @@ public class UserDashboardFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_dashboard, container, false);
 
-       /* mFindBookButton = (Button) view.findViewById(R.id.find_books);
-        mFindBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = BookListActivity.newIntent(getActivity());
-                startActivity(intent);
-            }
-        });*/
+
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.user_book_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -106,6 +107,7 @@ public class UserDashboardFragment extends Fragment {
             }
         }
     }
+
 
     private class UserBookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

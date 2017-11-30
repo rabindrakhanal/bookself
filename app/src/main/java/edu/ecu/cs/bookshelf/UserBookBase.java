@@ -100,4 +100,8 @@ public class UserBookBase {
 
         return values;
     }
+
+    public void deleteUserBook(UUID id) {
+        mDatabase.delete(UserBookTable.NAME, UserBookTable.Cols.BOOK_ID + " = ?", new String[]{id.toString()});
+    }
 }

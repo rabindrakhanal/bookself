@@ -3,6 +3,9 @@ package edu.ecu.cs.bookshelf;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,7 +49,34 @@ public class BookFragment extends Fragment {
         UUID bookId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_BOOK_ID);
         mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
         mBook = BookBase.getBookBase(getActivity()).getBook(bookId);
+        setHasOptionsMenu(true);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_book, menu);
+
+        final UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
+        final UserBook userBook = userBookBase.getUserBook(mBook.getId(), mUserId);
+        menu.getItem(0).setEnabled(false);
+        if (userBook != null) {
+            menu.getItem(0).setEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete_book:
+                UserBookBase.getUserBookBase(getActivity()).deleteUserBook(mBook.getId());
+                getActivity().finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
