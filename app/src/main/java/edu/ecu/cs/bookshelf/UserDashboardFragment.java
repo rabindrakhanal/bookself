@@ -46,7 +46,7 @@ public class UserDashboardFragment extends Fragment {
         mFindBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = BookListActivity.newIntent(getActivity());
+                Intent intent = new Intent(getActivity(),BookListActivity.class);
                 startActivity(intent);
             }
         });

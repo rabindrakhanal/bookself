@@ -4,31 +4,29 @@ package edu.ecu.cs.bookshelf;
  * Created by venkateshpala on 11/29/17.
  */
 
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
-import android.view.MenuItem;
-
-
-
-        import com.squareup.picasso.Callback;
-        import com.squareup.picasso.Picasso;
-
-        import android.content.Intent;
-        import android.graphics.Bitmap;
-        import android.graphics.drawable.BitmapDrawable;
-        import android.graphics.drawable.Drawable;
-        import android.net.Uri;
-        import android.os.Bundle;
-        import android.os.Environment;
-        import android.support.v4.view.MenuItemCompat;
-        import android.support.v7.app.ActionBar;
-        import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
-        import android.widget.TextView;
+import android.widget.TextView;
 
-        import java.io.File;
-        import java.io.FileOutputStream;
-        import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class BookDetailActivity extends AppCompatActivity {
     private ImageView ivBookCover;
@@ -49,17 +47,17 @@ public class BookDetailActivity extends AppCompatActivity {
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
         tvPublisher = (TextView) findViewById(R.id.tvPublisher);
 
-        // Extract book object from intent extras
-        Book book = getIntent().getParcelableExtra("book");
+        // Extract bookView object from intent extras
+        BookView bookView = getIntent().getParcelableExtra("bookView");
         ActionBar actionBar = getSupportActionBar(); // or getActionBar();
-        getSupportActionBar().setTitle(book.getTitle()); // set the top title
-        // Use book object to populate data into views
-        populateDetailView(book);
+        getSupportActionBar().setTitle(bookView.getTitle()); // set the top title
+        // Use bookView object to populate data into views
+        populateDetailView(bookView);
     }
 
-    void populateDetailView(Book book) {
+    void populateDetailView(BookView bookView) {
         ivBookCover.setImageResource(0);
-        Picasso.with(getApplicationContext()).load(book.getCoverUrl()).into(ivBookCover,
+        Picasso.with(getApplicationContext()).load(bookView.getCoverUrl()).into(ivBookCover,
                 new Callback() {
                     @Override
                     public void onSuccess() {
@@ -72,9 +70,9 @@ public class BookDetailActivity extends AppCompatActivity {
                     }
                 });
 
-        tvTitle.setText(book.getTitle());
-        tvAuthor.setText(book.getAuthor());
-        tvPublisher.setText("Published by " + book.getPublisher());
+        tvTitle.setText(bookView.getTitle());
+        tvAuthor.setText(bookView.getAuthor());
+        tvPublisher.setText("Published by " + bookView.getPublisher());
     }
 
     public void setupShareIntent() {
@@ -121,7 +119,7 @@ public class BookDetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_book_detail, menu);
 
         MenuItem menuItem = menu.findItem(R.id.menu_item_share);
-        mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
         mShareActionProvider.setShareIntent(shareIntent);
 
         return true;

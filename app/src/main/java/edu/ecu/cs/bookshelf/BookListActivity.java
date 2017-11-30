@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -40,7 +41,7 @@ public class BookListActivity extends AppCompatActivity {
     private ListView lvBooks;
     private BookAdapter bookAdapter;
     private BookClient client;
-    private ArrayList<Book> aBooks;
+    private ArrayList<BookView> mABookViews;
     private ProgressBar mProgressBar;
 
     //@Bind(R.id.lvBooks) ListView lvBooks;
@@ -52,9 +53,9 @@ public class BookListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         lvBooks = (ListView) findViewById(R.id.lvBooks);
-        aBooks = new ArrayList<>();
+        mABookViews = new ArrayList<>();
         // initialize the adapter
-        bookAdapter = new BookAdapter(this, aBooks);
+        bookAdapter = new BookAdapter(this, mABookViews);
 
         //add progress footer
         setupListWithFooter();
@@ -82,14 +83,14 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     public void launchBookDetailsActivity(int position) {
-        Book book = aBooks.get(position);
+        BookView bookView = mABookViews.get(position);
 
         Intent i = new Intent(this, BookDetailActivity.class);
-        i.putExtra("book", book);
+        i.putExtra("bookView", (Serializable) bookView);
         startActivity(i);
 
-//        Toast.makeText(getApplicationContext(), "Item clicked: " + book.getAuthor() + " "
-//                        + book.getTitle(),
+//        Toast.makeText(getApplicationContext(), "Item clicked: " + bookView.getAuthor() + " "
+//                        + bookView.getTitle(),
 //                Toast.LENGTH_LONG).show();
     }
 
@@ -106,12 +107,12 @@ public class BookListActivity extends AppCompatActivity {
                         // Get the docs json array
                         docs = response.getJSONArray("docs");
                         // Parse json array into array of model objects
-                        final ArrayList<Book> books = Book.fromJson(docs);
-                        // Remove all books from the adapter
+                        final ArrayList<BookView> bookViews = BookView.fromJson(docs);
+                        // Remove all bookViews from the adapter
                         bookAdapter.clear();
                         // Load model objects into the adapter
-                        for (Book book : books) {
-                            bookAdapter.add(book); // add book through the adapter
+                        for (BookView bookView : bookViews) {
+                            bookAdapter.add(bookView); // add bookView through the adapter
                         }
                         bookAdapter.notifyDataSetChanged();
                         hideProgress();

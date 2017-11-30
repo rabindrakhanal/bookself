@@ -14,7 +14,7 @@ import android.text.TextUtils;
 
 import java.util.ArrayList;
 
-public class BookView implements Parcelable {
+public class BookView extends Book implements Parcelable {
     private String openLibraryId;
     private String author;
     private String title;
