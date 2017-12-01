@@ -178,7 +178,8 @@ public class SignUpFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
 
                         LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
-                        Intent intent = UserDashboardActivity.newIntent(getActivity());
+                       // Intent intent = UserDashboardActivity.newIntent(getActivity());
+                        Intent intent = LoginActivity.newIntent(getActivity());
                         startActivity(intent);
                     }
                 }
