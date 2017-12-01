@@ -27,6 +27,8 @@ import java.util.UUID;
 public class UserDashboardFragment extends Fragment {
 
    // private Button mFindBookButton;
+   private static final String EXTRA_USERID = "userid";
+
     private RecyclerView mRecyclerView;
     private UserBookAdapter mUserBookAdapter;
     private UUID mUserId;
@@ -50,6 +52,11 @@ public class UserDashboardFragment extends Fragment {
                 Intent intent = UpdatePasswordActivity.newIntent(getActivity(), mUserId);
                 startActivity(intent);
                 return true;
+            case R.id.launch_map:
+                Intent i = new Intent(getActivity(), BookMapsActivity.class);
+                i.putExtra(EXTRA_USERID, mUserId);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -68,6 +75,11 @@ public class UserDashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override

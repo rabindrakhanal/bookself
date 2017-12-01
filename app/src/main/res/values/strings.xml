@@ -46,4 +46,5 @@
         Download here http://www.google.com Hurry!</string>
     <string name="app_subject">Bookshelf Advertisement</string>
     <string name="send_report">Share application details via</string>
+    <string name="title_activity_book_maps">Checked Out Books</string>
 </resources>

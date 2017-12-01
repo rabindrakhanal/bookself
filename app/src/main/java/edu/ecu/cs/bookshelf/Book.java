@@ -20,6 +20,9 @@ public class Book implements Serializable {
     private Date mDateModified;
     private String mCoverUrl;
 
+    private double mlatitude;
+    private double mlongitude;
+
     public Book() {
         this(UUID.randomUUID());
     }
@@ -108,5 +111,21 @@ public class Book implements Serializable {
 
     public void setCoverUrl(String coverUrl) {
         mCoverUrl = coverUrl;
+    }
+
+    public double getLatitude() {
+        return mlatitude;
+    }
+
+    public void setLatitude(double mlatitude) {
+        this.mlatitude = mlatitude;
+    }
+
+    public double getLongitude() {
+        return mlongitude;
+    }
+
+    public void setLongitude(double mlongitude) {
+        this.mlongitude = mlongitude;
     }
 }
