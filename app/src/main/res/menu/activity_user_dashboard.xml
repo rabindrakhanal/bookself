@@ -6,5 +6,11 @@
         android:title="Update Password"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/launch_map"
+        android:title="Launch Map"
+        android:icon="@drawable/icon_launch"
+        app:showAsAction="ifRoom|withText" />
+
 
 </menu>
