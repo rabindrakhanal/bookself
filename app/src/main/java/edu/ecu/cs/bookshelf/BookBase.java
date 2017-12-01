@@ -115,6 +115,8 @@ public class BookBase {
         values.put(BookTable.Cols.DATE_CREATED, book.getDateCreated().getTime());
         values.put(BookTable.Cols.DATE_MODIFIED, book.getDateModified().getTime());
         values.put(BookTable.Cols.COVER_URL, book.getCoverUrl());
+        values.put(BookTable.Cols.LATITUDE, book.getLatitude());
+        values.put(BookTable.Cols.LONGITUDE, book.getLongitude());
 
         return values;
     }

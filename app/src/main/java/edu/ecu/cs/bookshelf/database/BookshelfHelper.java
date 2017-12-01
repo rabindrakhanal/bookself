@@ -44,7 +44,9 @@ public class BookshelfHelper extends SQLiteOpenHelper {
                 BookTable.Cols.FORMAT + ", " +
                 BookTable.Cols.DATE_CREATED + ", " +
                 BookTable.Cols.DATE_MODIFIED + ", " +
-                BookTable.Cols.COVER_URL + ")"
+                BookTable.Cols.COVER_URL +  ", "+
+                BookTable.Cols.LATITUDE + ", " +
+                BookTable.Cols.LONGITUDE + ")"
         );
 
         db.execSQL("create table " + UserBookTable.NAME +

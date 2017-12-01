@@ -1,7 +1,13 @@
 package edu.ecu.cs.bookshelf;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +23,11 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.UUID;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 /**
  * Created by Jennifer on 10/29/2017.
  */
@@ -31,6 +42,18 @@ public class BookFragment extends Fragment {
     private CheckBox mReadCheckbox;
     private CheckBox mFavoriteCheckbox;
     private CheckBox mBorrowedCheckbox;
+
+    private static final String[] LOCATION_PERMISSIONS = new String[]
+            {
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+            };
+
+    private static final int REQUEST_LOCATION_PERMISSIONS = 0;
+
+    private GoogleApiClient mClient;
+
+
     private ImageView mBookCover;
 
     private UUID mUserId;
@@ -46,6 +69,76 @@ public class BookFragment extends Fragment {
         UUID bookId = (UUID) getActivity().getIntent().getSerializableExtra(BookActivity.EXTRA_BOOK_ID);
         mUserId = LoggedInUser.getLoggedInUser(getActivity()).getUserId();
         mBook = BookBase.getBookBase(getActivity()).getBook(bookId);
+        setHasOptionsMenu(true);
+
+        mClient = new GoogleApiClient.Builder(getActivity()).addApi(LocationServices.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks()
+                {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                    }
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+            .build();
+    }
+
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mClient.connect();
+    }
+
+    @Override
+    public void onStop()
+    {
+    super.onStop();
+
+    mClient.disconnect();
+    }
+
+    private void findLocation() {
+        LocationRequest request = LocationRequest.create();
+        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        request.setNumUpdates(1);
+        request.setInterval(0);
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+             return;
+        }
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                mBook.setLatitude(location.getLatitude());
+                mBook.setLongitude(location.getLongitude());
+                BookBase.getBookBase(getActivity()).updateBook(mBook);
+            }
+        });
+    }
+
+    private boolean hasLocationPermission(){
+    int result = ContextCompat.checkSelfPermission(getActivity(), LOCATION_PERMISSIONS[0]);
+    return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+   public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+          case REQUEST_LOCATION_PERMISSIONS:
+          if (hasLocationPermission())
+          {
+              findLocation();
+          }
+          default:
+          super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+          }
     }
 
     @Override
@@ -86,6 +179,13 @@ public class BookFragment extends Fragment {
                     userBook.setBorrowed(false);
                     userBook.setDateCreated(new Date());
                     userBook.setDateModified(new Date());
+
+                    if(hasLocationPermission()){
+                        findLocation();
+                    }else{
+                        requestPermissions(LOCATION_PERMISSIONS, REQUEST_LOCATION_PERMISSIONS);
+                    }
+
                     UserBookBase.getUserBookBase(getActivity()).addUserBook(userBook);
                     Toast.makeText(getActivity(), R.string.added_to_shelf, Toast.LENGTH_SHORT).show();
                     enableCheckboxes(view);
