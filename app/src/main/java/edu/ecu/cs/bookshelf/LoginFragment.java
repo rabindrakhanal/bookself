@@ -90,15 +90,15 @@ public class LoginFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
-                    User user = UserBase.getUserBase(getActivity()).getUserByEmail(mUser.get("emailAddress"));
-                    if (user.getEncryptedPassword().equals(mUser.get("encryptedPassword"))) {
-                        LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
-                        Intent intent = UserDashboardActivity.newIntent(getActivity());
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getActivity(), R.string.incorrect_password_toast, Toast.LENGTH_SHORT).show();
-                    }
+
+            if (UserBase.getUserBase(getActivity()).exists(mUser.get("emailAddress"))) {
+                User user = UserBase.getUserBase(getActivity()).getUserByEmail(mUser.get("emailAddress"));
+                if (user.getEncryptedPassword().equals(mUser.get("encryptedPassword"))) {
+                    LoggedInUser.getLoggedInUser(getActivity()).setUserId(user.getId());
+                    //Intent intent = UserDashboardActivity.newIntent(getActivity());
+                    Intent intent = NavigationDrawerActivity.newIntent(getActivity());
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getActivity(), R.string.no_existing_account_toast, Toast.LENGTH_SHORT).show();
                 }
@@ -119,16 +119,12 @@ public class LoginFragment extends Fragment {
         return view;
 
 
+        }
+    @Override
+    public void onResume()
+    {
+                super.onResume();
+                mEmailAddress.setText("");
+                mPassword.setText("");
     }
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -45,20 +45,23 @@ public class BookListFragment extends Fragment {
 
         updateUI();
 
-        setupAdapter();
+        //setupAdapter();
 
         return view;
     }
 
-    private void setupAdapter() {
+    /*private void setupAdapter() {
         if (isAdded()) {
             mBookRecyclerView.setAdapter(new BookAdapter(mBookItems));
         }
-    }
+    }*/
 
     private void updateUI() {
         BookBase bookBase = BookBase.getBookBase(getActivity());
         List<Book> books = bookBase.getBooks();
+        if(books.size() == 0){
+            bookBase.addSampleData();
+        }
         if (mBookAdapter == null) {
             mBookAdapter = new BookAdapter(books);
             mBookRecyclerView.setAdapter(mBookAdapter);
@@ -137,7 +140,7 @@ public class BookListFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Book> items) {
             mBookItems = items;
-            setupAdapter();
+            //setupAdapter();
         }
     }
 }

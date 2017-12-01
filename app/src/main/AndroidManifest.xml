@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="edu.ecu.cs.bookshelf">
+    package="edu.ecu.cs.bookshelf">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,19 +14,43 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".UserDashboardActivity"></activity>
-        <activity android:name=".BookActivity"
-                  android:parentActivityName=".BookListActivity">
-        </activity>
-        <activity android:name=".BookListActivity"
-                  android:parentActivityName=".UserDashboardActivity">
-        </activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".UserDashboardActivity" />
+        <activity
+            android:name=".BookActivity"
+            android:parentActivityName=".BookListActivity" />
+        <activity
+            android:name=".BookListActivity"
+            android:parentActivityName=".UserDashboardActivity" />
         <activity android:name=".UpdatePasswordActivity" />
+        <activity
+            android:name=".NavigationDrawerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
++             The API key for Google Maps-based APIs is defined as a string resource.
++             (See the file "res/values/google_maps_api.xml").
++             Note that the API key is linked to the encryption key used to sign the APK.
++             You need a different API key for each encryption key, including the release key that is used to
++             sign the APK for publishing.
++             You can define the keys for the debug and release targets in src/debug/ and src/release/.
++        -->
+        <meta-data
+                  android:name="com.google.android.geo.API_KEY"
+                   android:value="@string/google_maps_key" />
+               <activity
+                   android:name=".BookMapsActivity"
+                   android:label="@string/title_activity_book_maps">
+                   <meta-data
+                       android:name="android.support.PARENT_ACTIVITY"
+                       android:value="edu.ecu.cs.bookshelf.UserDashboardActivity" />
+
+    </activity>
     </application>
 
 </manifest>

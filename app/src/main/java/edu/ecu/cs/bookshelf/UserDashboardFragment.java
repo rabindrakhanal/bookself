@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.graphics.Color;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,9 @@ import java.util.UUID;
 
 public class UserDashboardFragment extends Fragment {
 
-    private Button mFindBookButton;
+   // private Button mFindBookButton;
+   private static final String EXTRA_USERID = "userid";
+
     private RecyclerView mRecyclerView;
     private UserBookAdapter mUserBookAdapter;
     private UUID mUserId;
@@ -49,10 +52,17 @@ public class UserDashboardFragment extends Fragment {
                 Intent intent = UpdatePasswordActivity.newIntent(getActivity(), mUserId);
                 startActivity(intent);
                 return true;
+            case R.id.launch_map:
+                Intent i = new Intent(getActivity(), BookMapsActivity.class);
+                i.putExtra(EXTRA_USERID, mUserId);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,17 +72,21 @@ public class UserDashboardFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_dashboard, container, false);
 
-        mFindBookButton = (Button) view.findViewById(R.id.find_books);
-        mFindBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),BookListActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.user_book_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -106,6 +120,7 @@ public class UserDashboardFragment extends Fragment {
         }
     }
 
+
     private class UserBookHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Book mBook;
@@ -122,6 +137,17 @@ public class UserDashboardFragment extends Fragment {
 
         public void bind(Book book) {
             mBook = book;
+            UserBook userBook = UserBookBase.getUserBookBase(getActivity()).getUserBook(mBook.getId(), mUserId);
+            if(userBook.getRead()){
+                mTitleTextView.setTextColor(Color.parseColor("#5A11D9"));
+            }else if(userBook.getBorrowed()){
+                mTitleTextView.setTextColor(Color.parseColor("#E01511"));
+            }else if(userBook.getFavorite()){
+                mTitleTextView.setTextColor(Color.parseColor("#11E059"));
+            } else{
+                mTitleTextView.setTextColor(Color.BLACK);
+            }
+
             mTitleTextView.setText(mBook.getTitle());
             mAuthorTextView.setText(mBook.getAuthor());
         }
