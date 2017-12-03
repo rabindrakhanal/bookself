@@ -47,7 +47,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if (fragment == null) {
-            fragment = new HelloWorldFragment();
+            fragment = new UserDashboardActivity().createFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();

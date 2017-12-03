@@ -1,6 +1,7 @@
 package edu.ecu.cs.bookshelf;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +124,18 @@ public class UserDashboardFragment extends Fragment {
             mBook = book;
             mTitleTextView.setText(mBook.getTitle());
             mAuthorTextView.setText(mBook.getAuthor());
+
+            // Update text color of book title based on user data; favorite books get priority
+            UserBook userBook = UserBookBase.getUserBookBase(getActivity()).getUserBook(mBook.getId(), mUserId);
+            if(userBook.getRead()){
+                mTitleTextView.setTextColor(Color.parseColor("#5A11D9"));
+            } else if(userBook.getBorrowed()){
+                mTitleTextView.setTextColor(Color.parseColor("#E01511"));
+            } else if(userBook.getFavorite()){
+                mTitleTextView.setTextColor(Color.parseColor("#11E059"));
+            } else{
+                mTitleTextView.setTextColor(Color.BLACK);
+            }
         }
 
         @Override
