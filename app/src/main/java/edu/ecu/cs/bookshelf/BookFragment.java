@@ -152,8 +152,10 @@ public class BookFragment extends Fragment {
         final UserBookBase userBookBase = UserBookBase.getUserBookBase(getActivity());
         final UserBook userBook = userBookBase.getUserBook(mBook.getId(), mUserId);
         menu.getItem(0).setEnabled(false);
+        menu.getItem(0).setVisible(false);
         if (userBook != null) {
             menu.getItem(0).setEnabled(true);
+            menu.getItem(0).setVisible(true);
         }
     }
 
