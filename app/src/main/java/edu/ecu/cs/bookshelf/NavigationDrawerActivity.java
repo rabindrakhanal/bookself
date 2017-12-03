@@ -96,9 +96,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_user_dashboard) {
-            // Handle the camera action
-            //Intent i = new Intent(NavigationDrawerActivity.this, UserDashboardActivity.class);
-            //startActivity(i);
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction()
                     .replace(R.id.fragment_container, UserDashboardFragment.newInstance())
@@ -106,27 +103,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_search_books)
         {
-            /*FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction()
-                    .replace(R.id.fragment_container, BookListFragment.newInstance())
-                    .commit();*/
             Intent i = new Intent(NavigationDrawerActivity.this, BookListActivity.class);
             startActivity(i);
-        }
-        else if (id == R.id.nav_fav_books)
-        {
-           // Toast.makeText(NavigationDrawerActivity.this, R.string.fav_book, Toast.LENGTH_SHORT ).show();
-            FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction()
-                    .replace(R.id.fragment_container, UserDashboardFragment.newInstance())
-                    .commit();
-        }
-        else if (id == R.id.nav_manage)
-        {
-            Toast.makeText(NavigationDrawerActivity.this, R.string.manage_profile, Toast.LENGTH_SHORT ).show();
-            //Intent i = new Intent(NavigationDrawerActivity.this, UpdatePasswordActivity.class);
-            //startActivity(i);
-
         }
         else if (id == R.id.nav_share)
         {

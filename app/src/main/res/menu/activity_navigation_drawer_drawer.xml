@@ -10,14 +10,6 @@
             android:id="@+id/nav_search_books"
             android:icon="@drawable/ic_action_books"
             android:title="Find Books" />
-        <item
-            android:id="@+id/nav_fav_books"
-            android:icon="@drawable/ic_action_my_books"
-            android:title="My Books" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Profile" />
     </group>
 
     <item android:title="Extra">

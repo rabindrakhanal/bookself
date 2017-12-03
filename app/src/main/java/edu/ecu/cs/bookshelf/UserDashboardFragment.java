@@ -143,7 +143,6 @@ public class UserDashboardFragment extends Fragment {
             mTitleTextView.setText(mBook.getTitle());
             mAuthorTextView.setText(mBook.getAuthor());
 
-            // Update text color of book title based on user data; favorite books get priority
             UserBook userBook = UserBookBase.getUserBookBase(getActivity()).getUserBook(mBook.getId(), mUserId);
             if(userBook.getRead()){
                 mTitleTextView.setTextColor(Color.parseColor("#5A11D9"));
